@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>李铭轩 | 个人主页</title>
+<meta name="description" content="李铭轩的个人主页 —— 我甘心是我的茧。">
+<style>
+  /* ========== 淡雅洛可可 · 奶油白 + 浅金 ========== */
+  :root {
+    --cream: #faf6ec;        /* 页面底色 奶油白 */
+    --cream-deep: #f3ecdb;   /* 侧栏底色 */
+    --panel: #fffdf6;        /* 卡片底色 */
+    --gold: #b8934a;         /* 主金 */
+    --gold-light: #d9bf85;   /* 浅金 */
+    --gold-pale: #efe3c6;    /* 极浅金，用于描边 */
+    --ink: #3d352a;          /* 主文字 墨棕 */
+    --muted: #8a7c66;        /* 次级文字 */
+    --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", STSong, "SimSun", serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--serif);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+  }
+  /* 油画布纹理叠层：细微噪点，让页面像画布 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.72 0 0 0 0 0.63 0 0 0 0 0.45 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ========== 左侧固定目录 ========== */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 250px;
+    background: var(--cream-deep);
+    border-right: 1px solid var(--gold-pale);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 42px 24px 28px;
+    z-index: 10;
+  }
+  .monogram {
+    width: 92px; height: 92px;
+    display: grid; place-items: center;
+    font-size: 40px;
+    color: var(--gold);
+    background: radial-gradient(circle at 50% 40%, #fffaf0 0%, var(--cream-deep) 72%);
+    border: 1px solid var(--gold-light);
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px var(--cream-deep), 0 0 0 6px var(--gold-pale);
+    margin-bottom: 8px;
+  }
+  .sidebar .site-name {
+    font-size: 21px;
+    letter-spacing: 0.35em;
+    margin: 14px 0 2px;
+    text-indent: 0.35em; /* 抵消末字间距，视觉居中 */
+  }
+  .sidebar .site-sub {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.25em;
+  }
+  .ornament-sm { margin: 18px 0 22px; }
+
+  .nav { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+  .nav a {
+    position: relative;
+    display: block;
+    text-align: center;
+    padding: 9px 0;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 15px;
+    letter-spacing: 0.45em;
+    text-indent: 0.45em;
+    border: 1px solid transparent;
+    transition: color .3s, background .3s, border-color .3s;
+  }
+  .nav a:hover { color: var(--gold); }
+  .nav a.active {
+    color: var(--gold);
+    background: var(--panel);
+    border-color: var(--gold-pale);
+  }
+  .sidebar-foot {
+    margin-top: auto;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    letter-spacing: 0.12em;
+    line-height: 2;
+  }
+
+  /* ========== 右侧内容 ========== */
+  .main { margin-left: 250px; padding: 0 64px 90px; max-width: 980px; }
+
+  section { padding-top: 74px; }
+  .sec-head { text-align: center; margin-bottom: 38px; }
+  .sec-head h2 {
+    display: inline-block;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+    text-indent: 0.5em;
+    color: var(--ink);
+  }
+  .sec-head .en {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .sec-head .flourish { display: block; margin: 14px auto 0; }
+
+  /* ---------- 首屏 Hero ---------- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    padding-top: 0;
+  }
+  .portrait-wrap { flex: 0 0 auto; position: relative; }
+  /* 金色椭圆画框 */
+  .portrait-frame {
+    width: 300px; height: 390px;
+    padding: 12px;
+    border-radius: 50% / 46%;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold) 45%, #9a7a3c 75%, var(--gold-light));
+    box-shadow:
+      0 0 0 1px #a3854a,
+      0 14px 38px rgba(122, 96, 44, 0.28),
+      inset 0 0 14px rgba(255, 250, 235, 0.65);
+  }
+  .portrait-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50% / 46%;
+    border: 3px solid var(--panel);
+    display: block;
+  }
+  .hero-text { flex: 1; }
+  .hero-text .hello {
+    font-size: 13px;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+  }
+  .hero-text h1 {
+    font-size: 54px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    margin: 14px 0 18px;
+  }
+  .hero-text .tagline {
+    font-size: 17px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+  }
+  .motto {
+    margin-top: 34px;
+    padding: 18px 26px;
+    border-left: 2px solid var(--gold-light);
+    font-size: 19px;
+    font-style: italic;
+    color: var(--ink);
+    letter-spacing: 0.14em;
+  }
+  .motto small {
+    display: block;
+    margin-top: 6px;
+    font-style: normal;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.3em;
+  }
+
+  /* ---------- 档案 ---------- */
+  .profile-card {
+    background: var(--panel);
+    border: 1px solid var(--gold-pale);
+    box-shadow: 0 10px 30px rgba(140, 112, 60, 0.10);
+    padding: 46px 56px;
+    position: relative;
+  }
+  .profile-card::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid var(--gold-pale);
+    pointer-events: none;
+  }
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 56px;
+  }
+  .p-item dt {
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.35em;
+    margin-bottom: 4px;
+  }
+  .p-item dd {
+    font-size: 17px;
+    letter-spacing: 0.06em;
+  }
+  .p-item.wide { grid-column: 1 / -1; }
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; }
+  .chip {
+    padding: 3px 16px;
+    font-size: 14px;
+    border: 1px solid var(--gold-light);
+    border-radius: 999px;
+    color: var(--ink);
+    background: #fff;
+  }
+
+  /* ---------- 爱好 ---------- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--gold-pale);
+    padding: 30px 32px;
+    box-shadow: 0 8px 24px rgba(140, 112, 60, 0.08);
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(140, 112, 60, 0.15);
+  }
+  .card .icon {
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    border: 1px solid var(--gold-light);
+    border-radius: 50%;
+    color: var(--gold);
+    margin-bottom: 14px;
+    background: #fffaf0;
+  }
+  .card h3 {
+    font-size: 19px;
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+  .card p { font-size: 15px; color: var(--muted); }
+
+  /* ---------- 优势 ---------- */
+  .adv-list { display: flex; flex-direction: column; gap: 16px; }
+  .adv {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    background: var(--panel);
+    border: 1px solid var(--gold-pale);
+    padding: 20px 30px;
+  }
+  .adv .num {
+    font-size: 26px;
+    font-style: italic;
+    color: var(--gold-light);
+    flex: 0 0 44px;
+    text-align: center;
+  }
+  .adv h3 {
+    font-size: 17px;
+    letter-spacing: 0.15em;
+    flex: 0 0 150px;
+  }
+  .adv p { font-size: 15px; color: var(--muted); }
+
+  /* ---------- 技能 ---------- */
+  .skill { margin-bottom: 26px; }
+  .skill .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .skill .name { font-size: 17px; letter-spacing: 0.12em; }
+  .skill .lv {
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.25em;
+  }
+  .bar {
+    height: 10px;
+    background: #f0e8d5;
+    border: 1px solid var(--gold-pale);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .bar i {
+    display: block;
+    height: 100%;
+    width: 0; /* 由入场动效填充 */
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold));
+    transition: width 1.4s cubic-bezier(.22,.8,.28,1);
+  }
+  /* ---------- 联系方式 ---------- */
+  .contact-card {
+    background: var(--panel);
+    border: 1px solid var(--gold-pale);
+    padding: 40px 56px;
+    position: relative;
+  }
+  .contact-card::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid var(--gold-pale);
+    pointer-events: none;
+  }
+  .c-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 13px 0;
+    border-bottom: 1px dashed var(--gold-pale);
+    font-size: 16px;
+  }
+  .c-row:last-child { border-bottom: none; }
+  .c-row .icon {
+    width: 38px; height: 38px;
+    flex: 0 0 38px;
+    display: grid; place-items: center;
+    border: 1px solid var(--gold-light);
+    border-radius: 50%;
+    color: var(--gold);
+    background: #fffaf0;
+  }
+  .c-row .label {
+    flex: 0 0 70px;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+  }
+  .c-row .val { letter-spacing: 0.05em; user-select: all; }
+  .c-row a { color: var(--ink); text-decoration: none; }
+  .c-row a:hover { color: var(--gold); }
+
+  footer {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  /* 纹样必须转为块级元素，margin:0 auto 才能真正居中、上下间距才生效 */
+  footer .ornament-sm { display: block; margin: 0 auto 14px; }
+  footer .foot-motto {
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  footer .foot-name { letter-spacing: 0.18em; }
+
+  /* ========== 欢迎进入界面（点击后才进主页） ========== */
+  .gate {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 24px;
+    background: radial-gradient(circle at 50% 36%, #fffdf5 0%, #f7efdd 55%, #efe4cd 100%);
+    transition: opacity .85s ease, visibility .85s ease;
+  }
+  body.gate-locked { overflow: hidden; }
+  .gate.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+  .gate-monogram {
+    width: 86px; height: 86px;
+    margin: 0 auto 22px;
+    display: grid; place-items: center;
+    font-size: 34px;
+    color: var(--gold);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%, #fffaf0 0%, #f6eccf 75%);
+    border: 1px solid var(--gold-light);
+    box-shadow: 0 0 0 5px rgba(255, 253, 246, 0.7), 0 0 0 6px var(--gold-pale);
+  }
+  .gate-hello { font-size: 12px; letter-spacing: 0.5em; color: var(--gold); }
+  .gate-name {
+    font-size: 46px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+    margin: 8px 0 10px;
+  }
+  .gate-motto {
+    font-size: 15px;
+    font-style: italic;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+  }
+  .gate-btn {
+    margin-top: 38px;
+    padding: 13px 46px;
+    font-family: var(--serif);
+    font-size: 16px;
+    letter-spacing: 0.35em;
+    text-indent: 0.35em;
+    color: var(--ink);
+    background: linear-gradient(180deg, #fffdf6, #f6eccf);
+    border: 1px solid var(--gold-light);
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(140, 112, 60, 0.18);
+    transition: color .25s, transform .25s, box-shadow .25s;
+  }
+  .gate-btn:hover {
+    color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(140, 112, 60, 0.26);
+  }
+  .gate-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .gate-tip { margin-top: 16px; font-size: 12px; letter-spacing: 0.2em; color: var(--muted); }
+
+  /* ========== 入场动效 ========== */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .bar i { transition: none; }
+    .gate { transition: none; }
+  }
+
+  /* ========== 移动端适配 ========== */
+  @media (max-width: 900px) {
+    .sidebar {
+      position: static;
+      width: 100%;
+      flex-direction: column;
+      padding: 30px 20px 20px;
+      border-right: none;
+      border-bottom: 1px solid var(--gold-pale);
+    }
+    .nav { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 2px; }
+    .nav a { padding: 6px 12px; font-size: 14px; letter-spacing: 0.2em; text-indent: 0.2em; }
+    .sidebar-foot { display: none; }
+    .main { margin-left: 0; padding: 0 22px 70px; }
+    .hero { flex-direction: column; text-align: center; gap: 36px; min-height: auto; padding: 56px 0 0; }
+    .motto { border-left: none; border-top: 2px solid var(--gold-light); text-align: center; }
+    .hero-text h1 { font-size: 40px; }
+    .profile-card, .contact-card { padding: 34px 26px; }
+    .profile-grid { grid-template-columns: 1fr; gap: 18px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .adv { flex-wrap: wrap; gap: 8px 16px; }
+    .portrait-frame { width: 250px; height: 325px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- JS 被禁用时不拦截用户，直接显示主页 -->
+<noscript><style>.gate { display: none !important; }</style></noscript>
+
+<!-- ================= 欢迎进入界面 ================= -->
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-name">
+  <div class="gate-inner">
+    <div class="gate-monogram" aria-hidden="true">李</div>
+    <p class="gate-hello">WELCOME</p>
+    <h1 class="gate-name" id="gate-name">李铭轩</h1>
+    <p class="gate-motto">「 我甘心是我的茧 」</p>
+    <svg width="180" height="24" viewBox="0 0 180 24" fill="none" aria-hidden="true" style="display:block;margin:24px auto 0;">
+      <path d="M5 12 C 22 3, 38 21, 54 12 S 86 3, 90 12 S 122 21, 126 12 S 158 3, 175 12"
+            stroke="#c9a86a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <circle cx="90" cy="12" r="2.2" fill="#b8934a"/>
+    </svg>
+    <button class="gate-btn" id="gate-btn" type="button">点击进入</button>
+    <p class="gate-tip">点击后进入我的主页</p>
+  </div>
+</div>
+
+<!-- ================= 左侧目录 ================= -->
+<aside class="sidebar">
+  <div class="monogram" aria-hidden="true">李</div>
+  <div class="site-name">李铭轩</div>
+  <div class="site-sub">LI MINGXUAN</div>
+  <!-- 卷草纹分隔 -->
+  <svg class="ornament-sm" width="150" height="22" viewBox="0 0 150 22" fill="none" aria-hidden="true">
+    <path d="M4 11 C 18 2, 30 20, 44 11 S 70 2, 75 11 S 100 20, 106 11 S 132 2, 146 11"
+          stroke="#c9a86a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <circle cx="75" cy="11" r="2" fill="#b8934a"/>
+  </svg>
+  <nav class="nav" id="nav">
+    <a href="#top" class="active">首页</a>
+    <a href="#profile">档案</a>
+    <a href="#hobbies">爱好</a>
+    <a href="#strengths">优势</a>
+    <a href="#skills">技能</a>
+    <a href="#contact">联系</a>
+  </nav>
+  <div class="sidebar-foot">
+    我甘心是我的茧<br>
+    <span style="letter-spacing:.1em;">© 2026 李铭轩</span>
+  </div>
+</aside>
+
+<!-- ================= 右侧内容 ================= -->
+<main class="main" id="top">
+
+  <!-- 首屏 -->
+  <section class="hero">
+    <div class="portrait-wrap reveal">
+      <div class="portrait-frame">
+        <img src="images/avatar.jpg" alt="李铭轩的照片" width="300" height="390">
+      </div>
+    </div>
+    <div class="hero-text reveal">
+      <p class="hello">HELLO, I AM</p>
+      <h1>李铭轩</h1>
+      <p class="tagline">河南师范大学商学院 · 2026级 · 投资学专业</p>
+      <div class="motto">
+        「 我甘心是我的茧 」
+        <small>—— 个人信条</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- 档案 -->
+  <section id="profile">
+    <div class="sec-head reveal">
+      <h2>个人档案</h2>
+      <span class="en">Profile</span>
+      <svg class="flourish" width="220" height="26" viewBox="0 0 220 26" fill="none" aria-hidden="true">
+        <path d="M6 13 C 26 3, 44 23, 64 13 S 100 3, 110 13 S 146 23, 156 13 S 192 3, 214 13"
+              stroke="#c9a86a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <circle cx="110" cy="13" r="2.4" fill="#b8934a"/>
+      </svg>
+    </div>
+    <dl class="profile-card reveal">
+      <div class="profile-grid">
+        <div class="p-item">
+          <dt>生 日</dt>
+          <dd>2008 年 1 月 6 日 · 摩羯座</dd>
+        </div>
+        <div class="p-item">
+          <dt>年 龄</dt>
+          <dd><span id="age">18</span> 岁</dd>
+        </div>
+        <div class="p-item">
+          <dt>坐 标</dt>
+          <dd>广东 ⇋ 河南</dd>
+        </div>
+        <div class="p-item">
+          <dt>学 业</dt>
+          <dd>河南师范大学商学院 · 投资学</dd>
+        </div>
+        <div class="p-item wide">
+          <dt>性格关键词</dt>
+          <dd class="chips">
+            <span class="chip">INFJ</span>
+            <span class="chip">耐心细致</span>
+            <span class="chip">认真负责</span>
+          </dd>
+        </div>
+      </div>
+    </dl>
+  </section>
+
+  <!-- 爱好 -->
+  <section id="hobbies">
+    <div class="sec-head reveal">
+      <h2>兴趣爱好</h2>
+      <span class="en">Hobbies</span>
+      <svg class="flourish" width="220" height="26" viewBox="0 0 220 26" fill="none" aria-hidden="true">
+        <path d="M6 13 C 26 3, 44 23, 64 13 S 100 3, 110 13 S 146 23, 156 13 S 192 3, 214 13"
+              stroke="#c9a86a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <circle cx="110" cy="13" r="2.4" fill="#b8934a"/>
+      </svg>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal">
+        <div class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4"/><circle cx="16" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="18.5" cy="14.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3>游戏</h3>
+        <p>偏爱能让人沉下心的那类世界——《星露谷物语》《泰拉瑞亚》都是心头好，种田与探险两不误。</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M7 4v16M17 4v16M2 9h5M2 15h5M17 9h5M17 15h5"/></svg>
+        </div>
+        <h3>文艺电影</h3>
+        <p>喜欢在光影里慢慢品味情绪与故事，文艺片是我的舒适区。</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/><path d="M9 7h7M9 10.5h5"/></svg>
+        </div>
+        <h3>阅读</h3>
+        <p>喜欢的作家：黑塞、白先勇、简媜——在字里行间寻找共鸣。</p>
+      </div>
+      <div class="card reveal">
+        <div class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4M9 21h6"/></svg>
+        </div>
+        <h3>播客 · 访谈 · 辩论</h3>
+        <p>常听播客与访谈节目，也爱看辩论赛——享受观点交锋的张力。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 优势 -->
+  <section id="strengths">
+    <div class="sec-head reveal">
+      <h2>个人优势</h2>
+      <span class="en">Strengths</span>
+      <svg class="flourish" width="220" height="26" viewBox="0 0 220 26" fill="none" aria-hidden="true">
+        <path d="M6 13 C 26 3, 44 23, 64 13 S 100 3, 110 13 S 146 23, 156 13 S 192 3, 214 13"
+              stroke="#c9a86a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <circle cx="110" cy="13" r="2.4" fill="#b8934a"/>
+      </svg>
+    </div>
+    <div class="adv-list">
+      <div class="adv reveal">
+        <span class="num">Ⅰ</span>
+        <h3>主持演讲</h3>
+        <p>多次担任学校各类活动主持人，台风稳、控场自如。</p>
+      </div>
+      <div class="adv reveal">
+        <span class="num">Ⅱ</span>
+        <h3>心态好</h3>
+        <p>抗压能力强，事情再多再急也能沉住气、稳住节奏。</p>
+      </div>
+      <div class="adv reveal">
+        <span class="num">Ⅲ</span>
+        <h3>表达能力强</h3>
+        <p>能把想法讲清楚、讲到位，口头与书面表达兼顾。</p>
+      </div>
+      <div class="adv reveal">
+        <span class="num">Ⅳ</span>
+        <h3>做事心细</h3>
+        <p>注重细节，交到手上的事让人放心。</p>
+      </div>
+      <div class="adv reveal">
+        <span class="num">Ⅴ</span>
+        <h3>共情能力强</h3>
+        <p>善于倾听与换位思考，能照顾到别人的情绪。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 技能 -->
+  <section id="skills">
+    <div class="sec-head reveal">
+      <h2>技能图鉴</h2>
+      <span class="en">Skills</span>
+      <svg class="flourish" width="220" height="26" viewBox="0 0 220 26" fill="none" aria-hidden="true">
+        <path d="M6 13 C 26 3, 44 23, 64 13 S 100 3, 110 13 S 146 23, 156 13 S 192 3, 214 13"
+              stroke="#c9a86a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <circle cx="110" cy="13" r="2.4" fill="#b8934a"/>
+      </svg>
+    </div>
+    <div class="profile-card reveal">
+      <div class="skill">
+        <div class="row">
+          <span class="name">WPS 全套（文字 / 表格 / 演示）</span>
+          <span class="lv">熟练掌握</span>
+        </div>
+        <div class="bar"><i data-w="92%"></i></div>
+      </div>
+      <div class="skill">
+        <div class="row">
+          <span class="name">AI 工具</span>
+          <span class="lv">熟练运用</span>
+        </div>
+        <div class="bar"><i data-w="86%"></i></div>
+      </div>
+      <div class="skill">
+        <div class="row">
+          <span class="name">Photoshop · Procreate 等设计绘图软件</span>
+          <span class="lv">熟练掌握</span>
+        </div>
+        <div class="bar"><i data-w="88%"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section id="contact">
+    <div class="sec-head reveal">
+      <h2>联系我</h2>
+      <span class="en">Contact</span>
+      <svg class="flourish" width="220" height="26" viewBox="0 0 220 26" fill="none" aria-hidden="true">
+        <path d="M6 13 C 26 3, 44 23, 64 13 S 100 3, 110 13 S 146 23, 156 13 S 192 3, 214 13"
+              stroke="#c9a86a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <circle cx="110" cy="13" r="2.4" fill="#b8934a"/>
+      </svg>
+    </div>
+    <div class="contact-card reveal">
+      <div class="c-row">
+        <span class="icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8.1 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.6 2z"/></svg>
+        </span>
+        <span class="label">手机</span>
+        <span class="val">136 5290 1170</span>
+      </div>
+      <div class="c-row">
+        <span class="icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.4 3.4-5.5 6.5-5.5s5.7 2.1 6.5 5.5"/><circle cx="17.5" cy="9" r="2.8"/><path d="M15.5 14.7c2.9.2 5.3 2 6 4.8"/></svg>
+        </span>
+        <span class="label">QQ</span>
+        <span class="val">2590131642</span>
+      </div>
+      <div class="c-row">
+        <span class="icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4c-1.2 0-2.4-.2-3.4-.7L3 21l1.9-4.4A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg>
+        </span>
+        <span class="label">微信</span>
+        <span class="val">leeemx0106</span>
+      </div>
+      <div class="c-row">
+        <span class="icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg>
+        </span>
+        <span class="label">邮箱</span>
+        <span class="val"><a href="mailto:2590131642@qq.com">2590131642@qq.com</a></span>
+      </div>
+    </div>
+    <footer>
+      <svg class="ornament-sm" width="150" height="22" viewBox="0 0 150 22" fill="none" aria-hidden="true">
+        <path d="M4 11 C 18 2, 30 20, 44 11 S 70 2, 75 11 S 100 20, 106 11 S 132 2, 146 11"
+              stroke="#c9a86a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <circle cx="75" cy="11" r="2" fill="#b8934a"/>
+      </svg>
+      <p class="foot-motto">我甘心是我的茧</p>
+      <p class="foot-name">© 2026 李铭轩</p>
+    </footer>
+  </section>
+</main>
+
+<script>
+  // 年龄自动计算：根据生日动态得出，避免页面过期
+  (function () {
+    var el = document.getElementById("age");
+    if (!el) return;
+    var now = new Date();
+    var age = now.getFullYear() - 2008;
+    var m = now.getMonth() + 1, d = now.getDate();
+    if (m < 1 || (m === 1 && d < 6)) age -= 1; // 1月6日前未过生日
+    el.textContent = String(age);
+  })();
+
+  // 滚动入场动效：区块进入视口时淡入 + 技能条填充
+  // 定义为函数而非立即执行 —— 要等用户在欢迎界面点击「进入」后才启动
+  var startReveal = function () {
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var items = document.querySelectorAll(".reveal");
+    var bars = document.querySelectorAll(".bar i");
+
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("visible"); });
+      bars.forEach(function (b) { b.style.width = b.getAttribute("data-w"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          entry.target.querySelectorAll(".bar i").forEach(function (b) {
+            b.style.width = b.getAttribute("data-w");
+          });
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    items.forEach(function (el) { io.observe(el); });
+  };
+
+  // 侧栏导航高亮：滚动时同步当前区块
+  (function () {
+    var links = document.querySelectorAll("#nav a");
+    if (!links.length || !("IntersectionObserver" in window)) return;
+    var map = {};
+    links.forEach(function (a) {
+      var id = a.getAttribute("href").slice(1);
+      map[id] = a;
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && map[entry.target.id]) {
+          links.forEach(function (a) { a.classList.remove("active"); });
+          map[entry.target.id].classList.add("active");
+        }
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    ["top", "profile", "hobbies", "strengths", "skills", "contact"].forEach(function (id) {
+      var sec = document.getElementById(id);
+      if (sec) io.observe(sec);
+    });
+  })();
+
+  // 欢迎界面：点击按钮后淡出，再启动主页动效
+  (function () {
+    var gate = document.getElementById("gate");
+    var btn = document.getElementById("gate-btn");
+    if (!gate || !btn) { startReveal(); return; }
+
+    document.body.classList.add("gate-locked"); // 欢迎界面期间禁止滚动
+    btn.addEventListener("click", function () {
+      gate.classList.add("gone");
+      document.body.classList.remove("gate-locked");
+      // 等淡出动画结束再从渲染树中移除，避免它继续挡住点击
+      window.setTimeout(function () { gate.style.display = "none"; }, 900);
+      startReveal();
+    });
+  })();
+</script>
+</body>
+</html>
